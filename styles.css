@@ -1,0 +1,12 @@
+#scratch {
+    border: thin solid black;
+    background-color: #ecf0f1;
+    width: 550px;
+    height: 350px;
+    font-size: 60px;
+}
+
+.contrasena {
+    font-size: 35px;
+    font-family: monospace;
+}

@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description"
+        content="Un ejemplo de un generador de contraseñas en Javascript. El código esta disponible viendo código fuente de la página.">
+    <meta name="keywords" content="password,contraseñas,JavaScript">
+    <meta name="author" content="linuxmanr4">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="water.css">
+    <title>Generador de contraseñas con Javascript</title>
+    <!-- Anuncios Adsense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4564255988687880"
+        crossorigin="anonymous"></script>
+    <!-- Javascript -->
+    <script>
+        document.captureEvents(Event.MOUSEMOVE)
+
+        let p = [];
+
+        let chars = String.fromCharCode(33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126);
+
+        chars = chars.split("");
+
+        function start() {
+            p = [];
+        }
+
+        function stop() {
+            sum = 0;
+            for (i = 0; i < p.length; i++) {
+                sum += Math.abs(1 / Math.sin(p[i][0]) + Math.sin(p[i][1]));
+            }
+            sum = Math.ceil(sum * 1000) % chars.length;
+            document.getElementById("scratch").innerHTML = sum;
+            document.getElementById("password").value += chars[sum];
+        }
+
+        function store(event) {
+            p[p.length] = [event.pageX, event.pageY];
+        }
+
+        function random(min, max) {
+            return Math.floor(Math.random() * (max - min + 1) + min);
+        }
+
+
+        function generarContrasena() {
+            let longitud = random(12, 20);
+            let password = [];
+            for (let i = 0; i < longitud; i++) {
+                password.push(chars[random(0, chars.length)]);
+            }
+            document.getElementById("contrasena").value = password.join("");
+        }
+    </script>
+</head>
+
+<body>
+    <!-- Main -->
+    <main class="container">
+        <!-- Logo -->
+        <h1>Generador de contraseñas con Javascript</h1>
+        <p>Para generar una contraseña solo mueve el <i>mouse</i> sobre el rectángulo blanco tantas veces como
+            caracteres desees en tu contraseña. Necesitas entrar y salir del rectángulo para generar un nuevo elemento
+            de la contraseña.</p>
+        <p>Para borrarla y crear una nueva solo da clic en botón de borrar.</p>
+        <p>Una vez generada solo tienes que seleccionar la contraseña, copiarla y pegarla donde gustes ¡Simple!</p>
+        <h2>Generar una contraseña con movimientos aleatorios del mouse</h2>
+        <img src="logo_safebox.png">
+        <p>
+        <form>
+            <input type="text" class="contrasena" id="password">
+            <input type="reset" value="Borrar">
+        </form>
+        <div id="scratch" onmouseover="start()" onmouseout="stop()" onmousemove="store(event)" align="center"></div>
+        </p>
+        <p>Este generador de contraseñas no es de mi autoría, el código es mérito del matemático y ahora fotógrafo <a
+                href="https://b3co.com/" target="_blank">Alberto Alcocer (aka B3co)</a> y lo ví en su artículo <a
+                href="http://b3co.com/archivo/1034/generador-de-passwords" target="_blank">Generador de passwords</a>.
+            Lamentablemente cambió de hosting y el enlace al que hace referencia dejó de funcionar, así que me tomé la
+            libertad de rescatarlo del olvido y "enchularlo" un poco.</p>
+        <h2>Generar una contraseña con la función Math.random()</h2>
+        <p>Como los dispositivos móviles no detectan el movimiento del <i>mouse</i> incluí un método más convencional.
+        </p>
+        <p>El mismo Javascript incluye una función <a
+                href="https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Math/random">random</a>.
+            Así que al presionar el botón genera una contraseña de un largo aleatorio entre 12 y 20 carácteres.</p>
+        <p>
+            <input type="button" onclick="generarContrasena()" value="Generar contraseña">
+            <input type="text" class="contrasena" id="contrasena">
+        </p>
+        <p>Ambos enfoques funcionan 100% con javascript, todo es del lado del cliente, por lo que <strong>no se guarda
+                ningún password</strong>, puedes usarlo como gustes con toda la seguridad que nadie conocerá los
+            passwords que generes, ni los interceptará con un <i>sniffer</i> o artilugios similares.</p>
+        <p>Para revisar el código sólo tienes que presionar <strong>Ctrl+U</strong> en muchos navegadores esta
+            combinación de teclas muestra el código fuente de la página que estas viendo.</p>
+        <h2>Actualizaciones</h2>
+        <p><strong>5-dic-2014</strong> Ahora también genera contraseñas con símbolos, así que el conjunto de 62
+            caracteres (letras y números) aumentó a 94 caracteres, la inclusión de símbolos es un requisito
+            indispensable para una buena contraseña.</p>
+        <p><strong>30-jul-2022</strong> Estoy leyendo un curso de <a href="https://javascript.info/">Javascript</a> y le
+            hice algunas pequeñas modificaciones al código de la función. Agregué algunos elementos como un <i>Input</i>
+            para que copiar la contraseña sea más fácil y un botón de borrado.</p>
+        <p><strong>10-ago-2022</strong> Agregué un botón para generar contraseñas desde dispositivos móviles.</p>
+        <p><strong>1-nov-2022</strong> Se sube este proyecto a Github.</p>
+    </main>
+    <!-- / Main -->
+    <!-- Footer -->
+    <footer class="container">
+        <small>Visita <a href="https://linuxmanr4.com">linuxmanr4.com</a>, haz ejercicio, come frutas y
+            verduras.</small>
+        <small>Built with <a href="https://watercss.kognise.dev/">Water</a></small>
+    </footer>
+    <!-- / Footer -->
+</body>
+
+</html>
+<!--
+Generador de contraseñas con Javascript
+=======================================
+
+   Copyright 2022 LinuxmanR4 https://linuxmanr4.com
+
+   This program is free software; you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation; either version 2 of the License, or
+   (at your option) any later version.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with this program; if not, write to the Free Software
+   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+   MA 02110-1301, USA.
+-->
